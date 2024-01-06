@@ -5,49 +5,74 @@ from typing import List
 
 
 class Solution:
-    """the fastest solution"""
+    """the fastest solution
+    仅适用于 Python 代码，其它语言的字符串翻转时间复杂度为 O(n) ?
+    """
     def longestPalindrome(self, s: str) -> str:
-        res = ''
-        for i in range(len(s)):
-            start = max(i - len(res) - 1, 0)
-            temp = s[start:i+1]
+        result = ""     # 当前循环后存在的最新的最长回文串
+        # 循环遍历右下标
+        for right in range(len(s)):
+            # 如果存在更长回文串，则其左下标取值 left
+            left = max(right - len(result) - 1, 0)
+            # 可能存在的更长的回文串 temp
+            temp = s[left:right + 1]
+            # 回文串翻转后等于其本身
             if temp == temp[::-1]:
-                res = temp
+                # 更新最新的最长回文串（等长也更新）
+                result = temp
             else:
+                # left 前进一位，覆盖奇、偶数位
                 temp = temp[1:]
                 if temp == temp[::-1]:
-                    res = temp
-        return res
+                    result = temp
+
+        return result
 
 
 class Solution5:
-    """Manacher Algorithms"""
-    def expand(self, s, left, right):
-        while left >= 0 and right < len(s) and s[left] == s[right]:
+    """ Manacher 算法
+    臂长： 当前位置可以获得回文串的一半
+    """
+
+    # 给定字符串和起始位置，返回可以扩展的最大臂长
+    def extend(self, s, left, right):
+        while 0 <= left and right < len(s) and s[left] == s[right]:
             left -= 1
             right += 1
         return (right - left - 2) // 2
 
     def longestPalindrome(self, s: str) -> str:
-        end, start = -1, 0
-        s = '#' + '#'.join(list(s)) + '#'
-        arm_len = []
-        right = -1
-        j = -1
+        # 原字符串间插入符号，解决回文字符串奇偶问题；
+        # 可以插入任意字符，不影响最终结果
+        s = "#" + "#".join(s) + "#"
+        # 每个位置对应的最长臂长
+        arms_length = []
+        # 最长回文串的起始、终点下标
+        start, end = 0, -1
+        # 循环查找位于 i 位置回文串时，已遍历的位置的回文中心 j 和 回文右臂能达到的最右位置 right
+        j, right = -1, -1
         for i in range(len(s)):
-            if right >= i:
-                i_sym = 2 * j - i
-                min_arm_len = min(arm_len[i_sym], right - i)
-                cur_arm_len = self.expand(s, i - min_arm_len, i + min_arm_len)
+            # 如果右臂未能覆盖，则从 0 开始检索臂长
+            if i >= right:
+                cur_arm_length = self.extend(s, i, i)
             else:
-                cur_arm_len = self.expand(s, i, i)
-            arm_len.append(cur_arm_len)
-            if i + cur_arm_len > right:
-                j = i
-                right = i + cur_arm_len
-            if 2 * cur_arm_len + 1 > end - start:
-                start = i - cur_arm_len
-                end = i + cur_arm_len
+                # 如果右臂能覆盖，则跳过镜像位置的臂长
+                i_sysmmetry = 2 * j - i
+                begin_arm_length = min(arms_length[i_sysmmetry], right - i)
+                cur_arm_length = self.extend(s, i - begin_arm_length, i + begin_arm_length)
+
+            arms_length.append(cur_arm_length)
+
+            # 如果当前位置的右臂大于之前的右臂，则更新
+            if i + cur_arm_length > right:
+                j, right = i, i + cur_arm_length
+
+            # 如果当前位置的回文长度大于之前的回文，则更新
+            if 2 * cur_arm_length + 1 > end - start:
+                start, end = i - cur_arm_length, i + cur_arm_length
+
+        # 因为起始和终点下标一定会落在插入的字符上，所有返回值坐标都要 +1
+        # 又因为原字符间都插入了字符，所有切片步长为 2
         return s[start+1:end+1:2]
 
 
