@@ -1,12 +1,17 @@
 """
-source : https://leetcode.cn/problems/rotate-image/description/
+title : 48. Rotate Image
+source : https://leetcode.cn/leetbook/read/array-and-string/clpgd/
+source : https://leetcode.cn/problems/rotate-image/
 """
 from typing import List
 
 
 class Solution:
-    """
+    """用翻转代替旋转
+
     先上下翻转，再按照左上到右下的对角线翻转，实现顺时针90度翻转
+    时间复杂度： O(n*n)
+    空间复杂度： O(1)
     """
     def rotate(self, matrix: List[List[int]]) -> None:
         """
@@ -23,8 +28,11 @@ class Solution:
 
 
 class Solution4:
-    """
+    """原地旋转
+
     以矩阵中心为界，将矩阵分为左上、右上、右下、左下四个小矩阵进行旋转
+    时间复杂度： O(n*n)
+    空间复杂度： O(1)
     """
     def rotate(self, matrix: List[List[int]]) -> None:
         """
@@ -38,8 +46,11 @@ class Solution4:
 
 
 class Solution3:
-    """
+    """原地旋转
+
     从外到内一圈一圈的旋转
+    时间复杂度： O(n*n)
+    空间复杂度： O(1)
     """
     def rotate(self, matrix: List[List[int]]) -> None:
         """
@@ -56,8 +67,11 @@ class Solution3:
 
 
 class Solution2:
-    """
+    """辅助矩阵
+
     使用一个矩阵来辅助翻转，顺时针翻转即为 [i,j] <= [n-j-1,i]
+    时间复杂度： O(n*n)
+    空间复杂度： O(n*n)
     """
     def rotate(self, matrix: List[List[int]]) -> None:
         n = len(matrix)
@@ -70,8 +84,11 @@ class Solution2:
 
 
 class Solution1:
-    """
+    """辅助矩阵
+
     使用一个矩阵来辅助翻转，顺时针翻转即为 [i,j] => [j][n-i-1]
+    时间复杂度： O(n*n)
+    空间复杂度： O(n*n)
     """
     def rotate(self, matrix: List[List[int]]) -> None:
         n = len(matrix)
@@ -91,4 +108,3 @@ if __name__ == "__main__":
     matrix_2 = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
     Solution().rotate(matrix_2)
     print(matrix_2)
-

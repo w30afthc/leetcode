@@ -1,11 +1,19 @@
 """
-source : https://leetcode.cn/problems/longest-common-prefix/description/
+title : 14. Longest Common Prefix
+source : https://leetcode.cn/leetbook/read/array-and-string/ceda1/
+source : https://leetcode.cn/problems/longest-common-prefix/
 """
 from typing import List
 
 
 class Solution:
-    """将字符串数组中所有子串纵向打包，再集合去重，长度为 1 的是公共部分"""
+    """打包集合去重
+
+    将字符串数组中所有子串纵向打包，再集合去重，长度为 1 的是公共部分
+
+    时间复杂度： O(m*n), 其中 n 为字符串数组长度，m 为字符串平均长度
+    空间复杂度： O(1)
+    """
     def longestCommonPrefix(self, strs: List[str]) -> str:
         prefix = ""
         for elem in list(map(set, zip(*strs))):
@@ -18,7 +26,13 @@ class Solution:
 
 
 class Solution6:
-    """二分查找"""
+    """二分查找
+
+    最长公共前缀范围为 0 到 最短字符串长度，二分查找其范围
+    时间复杂度： O(m*n*log m), 其中 n 为字符串数组长度，m 为字符串平均长度
+    二分查找的迭代执行次数是 O(log m)，每次迭代最多需要比较 m*n 个字符，因此总时间复杂度是 O(m*n*log m)
+    空间复杂度： O(1)
+    """
     def longestCommonPrefix(self, strs: List[str]) -> str:
         def is_common_prefix(index):
             str0, count = strs[0], len(strs)
@@ -36,7 +50,14 @@ class Solution6:
 
 
 class Solution5:
-    """分治"""
+    """分治
+
+    分治拆成若干子问题，递归算出最长公共前缀
+    时间复杂度： O(m*n), 其中 n 为字符串数组长度，m 为字符串平均长度
+    时间复杂度的递推式是 T(n) = 2*T(n/2)+O(m), 通过计算可得 T(n)=O(m*n)
+    空间复杂度： O(m*log n), 空间复杂度主要取决于递归调用的层数
+    层数最大为 log n，每层需要 m 的空间存储返回结果
+    """
     def longestCommonPrefix(self, strs: List[str]) -> str:
         def lcp(start, end) -> str:
             if start == end:
@@ -55,6 +76,14 @@ class Solution5:
 
 
 class Solution4:
+    """纵向扫描
+
+    取首个字符串依次和其余字符串比较
+    出现不同时，返回上一次全部相同的前缀
+    当遍历完首个字符串时都相同，则返回首个字符串
+    时间复杂度： O(m*n), 其中 n 为字符串数组长度，m 为字符串平均长度
+    空间复杂度： O(1)
+    """
     def longestCommonPrefix(self, strs: List[str]) -> str:
         if not strs:
             return ""
@@ -72,9 +101,12 @@ class Solution4:
 
 
 class Solution3:
-    """
+    """横向扫描
+
     取两个子串的最长公共前缀，作为新的子串依再次与下一个子串比较
     直到遍历完所有子串或最长公共前缀为空
+    时间复杂度： O(m*n), 其中 n 为字符串数组长度，m 为字符串平均长度
+    空间复杂度： O(1)
     """
     def longestCommonPrefix(self, strs: List[str]) -> str:
         prefix, count = strs[0], len(strs)
@@ -95,8 +127,11 @@ class Solution3:
 
 
 class Solution2:
-    """
+    """排序后检查头尾
+
     给字符串数组排序，排序后只要比较首尾两个子串的相同前缀即可
+    时间复杂度： O(n*log m), 其中 n 为字符串数组长度，m 为最短子串长度
+    空间复杂度： O(1)
     """
     def longestCommonPrefix(self, strs: List[str]) -> str:
         prefix = ""
@@ -110,10 +145,13 @@ class Solution2:
 
 
 class Solution1:
-    """
+    """暴力遍历
+
     只检查最短子字符串长度个字符
     依次取首个子字符串的字符，与其它子字符串对应位置的字符比较
     如果全部相同则追加到最长公共前缀中，否则返回结果
+    时间复杂度： O(m*n), 其中 n 为字符串数组长度，m 为最短子串长度
+    空间复杂度： O(1)
     """
     def longestCommonPrefix(self, strs: List[str]) -> str:
         substr_min_length = min(len(substr) for substr in strs)
@@ -134,5 +172,3 @@ if __name__ == "__main__":
     print(Solution().longestCommonPrefix(["ab", "a"]))
     print(Solution().longestCommonPrefix(["ab", "c"]))
     print(Solution().longestCommonPrefix(["abc"]))
-
-

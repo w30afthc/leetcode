@@ -1,15 +1,20 @@
 """
-source : https://leetcode.cn/problems/zero-matrix-lcci/description/
+title : 面试题 01.08. Zero Matrix LCCI
+source : https://leetcode.cn/leetbook/read/array-and-string/ciekh/
+source : https://leetcode.cn/problems/zero-matrix-lcci/
 """
 from typing import List
 
 
 class Solution:
-    """
+    """使用一个标记变量
+
     定义一个标志首列是否含有 0 的布尔变量，首行首列依然作为标志位；
     然后遍历整个矩阵，首列有 0 则修改标记，非首列有 0 则修改对应行首和列首；
     从右下角开始倒叙遍历整个矩阵，非首列元素依照对应的首行首列标志做清零操作，
     首列元素依照首列标志做清零
+    时间复杂度： O(m*n)
+    空间复杂度： O(1)
     """
     def setZeroes(self, matrix: List[List[int]]) -> None:
         """
@@ -34,9 +39,12 @@ class Solution:
 
 
 class Solution3:
-    """
+    """使用两个标记变量
+
     定义两个标志首行首列是否含有 0 的布尔变量，
-    然后首行首列作为非首行首列元素的标志
+    然后首行首列作为非首行首列元素是否为 0 的标志
+    时间复杂度： O(m*n)
+    空间复杂度： O(1)
     """
     def setZeroes(self, matrix: List[List[int]]) -> None:
         """
@@ -63,9 +71,11 @@ class Solution3:
 
 
 class Solution2:
-    """
-    将二维数组转化为字典
-    空间换时间
+    """使用标记集合
+
+    遍历矩阵，收集有 0 的行列，最后清零
+    时间复杂度： O(m*n)
+    空间复杂度： O(m*n)
     """
     def setZeroes(self, matrix: List[List[int]]) -> None:
         """
@@ -91,9 +101,12 @@ class Solution2:
 
 
 class Solution1:
-    """
-    暴力遍历，先找出有 0 的元素所在行列，收集所有需要清零的行里
+    """暴力遍历
+
+    先找出有 0 的元素所在行列，收集所有需要清零的行列
     最后遍历整个矩阵清零
+    时间复杂度： O(m*n)
+    空间复杂度： O(m+n)
     """
     def setZeroes(self, matrix: List[List[int]]) -> None:
         """

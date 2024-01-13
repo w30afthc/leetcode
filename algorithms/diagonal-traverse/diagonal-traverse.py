@@ -1,12 +1,17 @@
 """
+title : 498. Diagonal Traverse
+source : https://leetcode.cn/leetbook/read/array-and-string/cuxq3/
 source : https://leetcode.cn/problems/diagonal-traverse/
 """
 from typing import List
 
 
 class Solution:
-    """
+    """直接模拟
+
     依照对角线遍历的规则，依次给对角线数组赋值
+    时间复杂度： O(m*n)
+    空间复杂度： O(1)，除返回值外不需要额外的空间
     """
     def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
         m, n = len(mat), len(mat[0])

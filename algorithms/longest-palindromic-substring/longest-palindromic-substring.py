@@ -1,12 +1,18 @@
 """
+title : 5. Longest Palindromic Substring
+source : https://leetcode.cn/leetbook/read/array-and-string/conm7/
 source : https://leetcode.cn/problems/longest-palindromic-substring/
 """
 from typing import List
 
 
-class Solution:
-    """the fastest solution
+class Solution6:
+    """翻转比较
+
+    遍历字符串，找出比当前最长回文串还长的字符串，翻转后对比是否相同
     仅适用于 Python 代码，其它语言的字符串翻转时间复杂度为 O(n) ?
+    时间复杂度： O(n)
+    空间复杂度： O(n)
     """
     def longestPalindrome(self, s: str) -> str:
         result = ""     # 当前循环后存在的最新的最长回文串
@@ -31,11 +37,16 @@ class Solution:
 
 class Solution5:
     """ Manacher 算法
-    臂长： 当前位置可以获得回文串的一半
-    """
 
-    # 给定字符串和起始位置，返回可以扩展的最大臂长
+    记录之前遍历过的每个位置的最大回文串长度的一半（臂长），利用回文串左右对称，跳过当前位置不必要的计算
+    如果当前位置在之前某个很长的回文串右边界（臂长）之内，找到其对称位置的臂长
+    从起对称的臂长开始计算左右是否相同，以减少计算步骤
+    时间复杂度： O(n)，由于对于每个位置，扩展要么从当前的最右侧臂长 right 开始
+    要么只会进行一步，而 right 最多向前走 O(n) 步，因此算法的复杂度为 O(n)
+    空间复杂度： O(n)
+    """
     def extend(self, s, left, right):
+        """给定字符串和起始位置，返回可以扩展的最大臂长"""
         while 0 <= left and right < len(s) and s[left] == s[right]:
             left -= 1
             right += 1
@@ -77,7 +88,12 @@ class Solution5:
 
 
 class Solution4:
-    """中心扩展算法"""
+    """中心扩展算法
+
+    遍历所有可能得回文中心，尝试扩展
+    时间复杂度： O(n*n)
+    空间复杂度： O(1)
+    """
     def center_expansion(self, s, left, right):
         while 0 <= left <= right < len(s) and s[left] == s[right]:
             left -= 1
@@ -98,7 +114,12 @@ class Solution4:
 
 
 class Solution3:
-    """动态规划"""
+    """动态规划
+
+    遍历可能得回文串长度，如果两端相等，则判断去除首位后的字符串是否是回文
+    时间复杂度： O(n*n)
+    空间复杂度： O(n*n)
+    """
     def longestPalindrome(self, s: str) -> str:
         n = len(s)
         if n < 2:
@@ -130,10 +151,12 @@ class Solution3:
 
 
 class Solution2:
-    """
-    翻转字符串，与对比原字符串的切片对比，如果相同则为回文字符串
-    """
+    """翻转字符串
 
+    翻转后与原字符串的切片对比，如果相同则为回文字符串
+    时间复杂度： O(n*n)
+    空间复杂度： O(n)
+    """
     def longestPalindrome(self, s: str) -> str:
         s_r = s[::-1]
         length = len(s)
@@ -147,11 +170,13 @@ class Solution2:
 
 
 class Solution1:
-    """
-    暴力遍历： 如果 i 位置的字符与 i + 1 或 i + 2 相同，则 i 是回文子串的中间偏左
-    依次比较 i + j 与 i - j 是否相同，确定回文子串的边界
-    """
+    """暴力遍历
 
+    如果 i 位置的字符与 i + 1 或 i + 2 相同，则 i 是回文子串的中间偏左
+    依次比较 i + j 与 i - j 是否相同，确定回文子串的边界
+    时间复杂度： O(n*n)
+    空间复杂度： O(1)
+    """
     def longestPalindrome(self, s: str) -> str:
         result = s[0]
         length = len(s)
