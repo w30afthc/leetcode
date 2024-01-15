@@ -18,6 +18,25 @@ class ListNode:
 
 
 class Solution:
+    """常规遍历
+
+    遍历链表，如果当前节点和下个节点的值相等，则跳过下个节点
+    时间复杂度： O(n)
+    空间复杂度： O(1)
+    """
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head:
+            return head
+        cur = head
+        while cur.next:
+            if cur.val == cur.next.val:
+                cur.next = cur.next.next
+            else:
+                cur = cur.next
+        return head
+
+
+class Solution1:
     """双指针
 
     如果前后两个指针值相等，则移除后面的
