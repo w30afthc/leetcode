@@ -1,7 +1,7 @@
 """
 title : 283. Move Zeroes
-source : https://leetcode.cn/problems/move-zeroes/
 source : https://leetcode.cn/leetbook/read/array-and-string/c6u02/
+source : https://leetcode.cn/problems/move-zeroes/
 """
 from typing import List
 from collections import deque

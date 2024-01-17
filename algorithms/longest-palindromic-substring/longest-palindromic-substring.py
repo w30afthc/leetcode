@@ -35,7 +35,7 @@ class Solution6:
         return result
 
 
-class Solution5:
+class Solution:
     """ Manacher 算法
 
     记录之前遍历过的每个位置的最大回文串长度的一半（臂长），利用回文串左右对称，跳过当前位置不必要的计算

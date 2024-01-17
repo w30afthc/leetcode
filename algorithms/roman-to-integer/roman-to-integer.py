@@ -1,12 +1,16 @@
 """
-source : https://leetcode.cn/problems/roman-to-integer/description/
+title : 13. Roman to Integer
+source : https://leetcode.cn/problems/roman-to-integer/
 """
 from typing import List
 
 
 class Solution:
-    """
+    """模拟
+
     小值在大值左边则相减，小值在大值右边则相加
+    时间复杂度： O(n)
+    空间复杂度： O(1)
     """
     def romanToInt(self, s: str) -> int:
         transfer_dict ={
@@ -30,9 +34,12 @@ class Solution:
 
 
 class Solution1:
-    """
+    """模拟
+
     直接将可能得转换都列出来，从左到右先判断 2 个字符，符合则相加
     不符合则判断 1 个字符
+    时间复杂度： O(n)
+    空间复杂度： O(1)
     """
     def romanToInt(self, s: str) -> int:
         transfer_dict ={
@@ -69,4 +76,3 @@ if __name__ == "__main__":
     print(Solution().romanToInt("IX"))
     print(Solution().romanToInt("LVIII"))
     print(Solution().romanToInt("MCMXCIV"))
-

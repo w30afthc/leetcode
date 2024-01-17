@@ -1,7 +1,7 @@
 """
 title : 26. Remove Duplicates from Sorted Array
-source : https://leetcode.cn/problems/remove-duplicates-from-sorted-array/
 source : https://leetcode.cn/leetbook/read/array-and-string/cq376/
+source : https://leetcode.cn/problems/remove-duplicates-from-sorted-array/
 """
 from typing import List
 

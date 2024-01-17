@@ -1,12 +1,19 @@
 """
 title : 209. Minimum Size Subarray Sum
-source : https://leetcode.cn/problems/minimum-size-subarray-sum/description/
+source : https://leetcode.cn/leetbook/read/array-and-string/c0w4r/
+source : https://leetcode.cn/problems/minimum-size-subarray-sum/
 """
 from typing import List
 
 
 class Solution:
-    """前缀和 + 二分查找"""
+    """前缀和 + 二分查找
+
+    构建原数组的前缀和数组，表示原数组每个位置的前缀累加之和
+    在前缀和中二分查找大于等于目标值的位置
+    时间复杂度： O(n* log n)
+    空间复杂度： O(n)
+    """
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         n = len(nums)
         total, ans = 0, n + 1
@@ -28,9 +35,13 @@ class Solution:
         return 0 if ans == n + 1 else ans
 
 
-
 class Solution3:
-    """双指针 滑动窗口2"""
+    """双指针 滑动窗口2
+
+    快慢指针指向数组开始，总和 = 从 0 开始到快指针的累加 - 从 0 开始到慢指针的累加
+    时间复杂度： O(n)
+    空间复杂度： O(1)
+    """
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         nums_length = len(nums)
         i, sum_subarray, minima_length = 0, 0, nums_length + 1
@@ -44,7 +55,12 @@ class Solution3:
 
 
 class Solution2:
-    """双指针 滑动窗口"""
+    """双指针 滑动窗口
+
+    快慢指针指向数组开始，总和 = 从 0 开始到快指针的累加 - 从 0 开始到慢指针的累加
+    时间复杂度： O(n)
+    空间复杂度： O(1)
+    """
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         ans = len(nums) + 1
         fast, slow, total = 0, 0, 0
@@ -64,7 +80,13 @@ class Solution2:
 
 
 class Solution1:
-    """暴力遍历， 时间复杂度O(n*n)，超时了"""
+    """暴力遍历
+
+    遍历数组中的每一个位置，依次以该位置为起点向后依次累加
+    找到大于等于目标值的长度，找出最小长度
+    时间复杂度： O(n*n)，超时了
+    空间复杂度： O(1)
+    """
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         n = len(nums)
         ans = n + 1

@@ -1,11 +1,17 @@
 """
+title: 167. Two Sum II - Input Array Is Sorted
+source : https://leetcode.cn/leetbook/read/array-and-string/cnkjg/
 source : https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/
 """
 from typing import List
 
 
 class Solution:
-    """双指针 + 二分法"""
+    """双指针 + 二分法
+
+    间复杂度： O(n)
+    空间复杂度： O(1)
+    """
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         left, right = 0, len(numbers) - 1
         while left < right:
@@ -27,7 +33,15 @@ class Solution:
 
 
 class Solution3:
-    """双指针, 时间复杂度 O(n), 空间复杂度 O(1)"""
+    """双指针
+
+    初始左右指针分别指向数组的头尾，如果左右指针对应数之和为目标值则返回
+    如果之和小于目标值，则左指针前进
+    如果之和大于目标值，则右指针后退
+    因为数组按非递减顺序排列，且存在唯一的答案，所以一定能找到
+    时间复杂度： O(n)
+    空间复杂度： O(1)
+    """
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         left, right = 0, len(numbers)-1
         while left < right:
@@ -43,7 +57,14 @@ class Solution3:
 
 
 class Solution2:
-    """ HashTable 不满足使用常量级的额外空间要求 """
+    """哈希表
+
+    对于数组中的每个数，如果该数与目标值的差值不在哈希表中，则添加该数与对应下标哈希表中
+    如果在哈希表中则返回差值对应的下标和当前数的下标
+    HashTable 不满足使用常量级的额外空间要求
+    时间复杂度： O(n)
+    空间复杂度： O(n)
+    """
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         hashtable = dict()
         for i, number in enumerate(numbers, 1):
@@ -55,7 +76,13 @@ class Solution2:
 
 
 class Solution1:
-    """时间复杂度过高，O(n*n*n)"""
+    """暴力遍历
+
+    对于数组中的每个数，计算其与目标值的差值，查看该差值是否在剩下的数组中
+    时间复杂度过高
+    时间复杂度： O(n*n*n)
+    空间复杂度： O(1)
+    """
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         for i in range(len(numbers)):
             if target - numbers[i] in numbers[i+1:]:

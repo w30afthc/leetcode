@@ -1,5 +1,6 @@
 """
 title : 118. Pascal's Triangle
+source : https://leetcode.cn/leetbook/read/array-and-string/cuj3m/
 source : https://leetcode.cn/problems/pascals-triangle/
 """
 from typing import List

@@ -1,12 +1,20 @@
 """
 title : 27. Remove Element
+source : https://leetcode.cn/leetbook/read/array-and-string/cwuyj/
 source : https://leetcode.cn/problems/remove-element/
 """
 from typing import List
 
 
 class Solution:
-    """双指针优化, 保留原数组中的元素"""
+    """双指针优化, 保留原数组中的元素
+
+    左右指针分别指向数组首尾
+    如果左指针指向的数值为要删除的元素，则将其与右指针调换，右指针后退1
+    如果左指针指向的数值不是要删除的元素，则左指针前进1
+    时间复杂度： O(n)
+    空间复杂度： O(1)
+    """
     def removeElement(self, nums: List[int], val: int) -> int:
         left, right = 0, len(nums) - 1
         while left <= right:
@@ -19,7 +27,14 @@ class Solution:
 
 
 class Solution2:
-    """双指针"""
+    """双指针
+
+    左右指针均指向数组开头
+    如果右指针指向的不是要删除的元素，则将它赋值给左指针，左右指针分别前进1
+    如果是要删除的则跳过不处理，右指针前进1
+    时间复杂度： O(n)
+    空间复杂度： O(1)
+    """
     def removeElement(self, nums: List[int], val: int) -> int:
         j = 0
         for i in range(len(nums)):
@@ -30,7 +45,12 @@ class Solution2:
 
 
 class Solution1:
-    """相同的直接 remove """
+    """常规遍历
+
+    相同的直接 remove
+    时间复杂度： O(n*n)
+    空间复杂度： O(n)
+    """
     def removeElement(self, nums: List[int], val: int) -> int:
         i, length = 0, len(nums)
         while i < length:
