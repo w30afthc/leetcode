@@ -1,5 +1,6 @@
 """
 title : 705. Design HashSet
+source : https://leetcode.cn/leetbook/read/lc-class-hash/wvr08s/
 source : https://leetcode.cn/problems/design-hashset/
 """
 from typing import List
@@ -8,7 +9,8 @@ from typing import List
 class MyHashSet:
     """不定长拉链数组
 
-    分桶取质数，确保数据能均匀的分散在各个桶中
+    将哈希集合设计为 质数个分桶，确保数据能均匀的分散在各个桶中
+    桶中有数据时，依次在后添加
     时间复杂度： O(n/b), n 是元素个数，b 是桶数
     空间复杂度： O(n)
     """
@@ -35,6 +37,41 @@ class MyHashSet:
     def contains(self, key: int) -> bool:
         hashkey = self.hash(key)
         return key in self.table[hashkey]
+
+
+class MyHashSet3:
+    """定长拉链数组
+
+    把哈希集合设计为 1000 * 1001 的二维数组
+    时间复杂度： O(1)
+    空间复杂度： O(n)
+    """
+
+    def __init__(self):
+        self.buckets = 1000
+        self.itemsPreBucket = 1001
+        self.table = [[] for _ in range(self.buckets)]
+
+    def hash(self, key: int) -> int:
+        return key % self.buckets
+
+    def pos(self, key: int) -> int:
+        return key // self.buckets
+
+    def add(self, key: int) -> None:
+        hashkey = self.hash(key)
+        if not self.table[hashkey]:
+            self.table[hashkey] = [False] * self.itemsPreBucket
+        self.table[hashkey][self.pos(key)] = True
+
+    def remove(self, key: int) -> None:
+        hashkey = self.hash(key)
+        if self.table[hashkey]:
+            self.table[hashkey][self.pos(key)] = False
+
+    def contains(self, key: int) -> bool:
+        hashkey = self.hash(key)
+        return self.table[hashkey] != [] and self.table[hashkey][self.pos(key)]
 
 
 class MyHashSet2:
