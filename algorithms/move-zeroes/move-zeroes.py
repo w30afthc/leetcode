@@ -1,6 +1,7 @@
 """
 title : 283. Move Zeroes
 source : https://leetcode.cn/leetbook/read/array-and-string/c6u02/
+source : https://leetcode.cn/leetbook/read/sort-algorithms/evfj1d/
 source : https://leetcode.cn/problems/move-zeroes/
 """
 from typing import List
@@ -25,6 +26,24 @@ class Solution:
                     nums[slow] = nums[fast]
                     nums[fast] = 0
                 slow += 1
+
+
+class Solution2:
+    """冒泡法
+
+    如果当前位置为 0 ，且下一个位置不是 0，则交换位置
+    每次循环将一个 0 挪至最后一位
+    时间复杂度： O(n*n)
+    空间复杂度： O(1)
+    """
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        for i in range(len(nums) - 1):
+            for j in range(len(nums) - 1 - i):
+                if nums[j] == 0 and nums[j + 1] != 0:
+                    nums[j], nums[j + 1] = nums[j + 1], nums[j]
 
 
 class Solution1:
@@ -56,5 +75,9 @@ if __name__ == "__main__":
     print(nums)
 
     nums = [0,1,-1]
+    Solution().moveZeroes(nums)
+    print(nums)
+
+    nums = [0, 0, -1]
     Solution().moveZeroes(nums)
     print(nums)
