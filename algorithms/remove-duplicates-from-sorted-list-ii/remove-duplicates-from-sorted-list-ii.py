@@ -5,19 +5,26 @@ source : https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii/
 from typing import List, Optional
 
 
-class SingleLinkList:
+class SinglyLinkedList:
     def __init__(self):
         self.head = None
 
-    def append(self, item):
-        node = ListNode(item)
-        if self.head is None:
-            self.head = node
+    def append(self, val):
+        if not self.head:
+            self.head = ListNode(val)
         else:
-            cur = self.head
-            while cur.next:
-                cur = cur.next
-            cur.next = node
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = ListNode(val)
+
+    def display(self):
+        elements = []
+        current = self.head
+        while current:
+            elements.append(current.val)
+            current = current.next
+        return elements
 
 
 class ListNode:
@@ -131,38 +138,26 @@ class Solution1:
 
 
 if __name__ == "__main__":
-    single_link = SingleLinkList()
+    singly_linked_list = SinglyLinkedList()
     for node in [1,2,3,3,4,4,5]:
-        single_link.append(node)
-    head = Solution().deleteDuplicates(single_link.head)
-    while head:
-        print(head.val, end=" ")
-        head = head.next
-    print()
+        singly_linked_list.append(node)
+    singly_linked_list.head = Solution().deleteDuplicates(singly_linked_list.head)
+    print(singly_linked_list.display())
 
-    single_link = SingleLinkList()
+    singly_linked_list = SinglyLinkedList()
     for node in [1,1,1,2,3]:
-        single_link.append(node)
-    head = Solution().deleteDuplicates(single_link.head)
-    while head:
-        print(head.val, end=" ")
-        head = head.next
-    print()
+        singly_linked_list.append(node)
+    singly_linked_list.head = Solution().deleteDuplicates(singly_linked_list.head)
+    print(singly_linked_list.display())
 
-    single_link = SingleLinkList()
+    singly_linked_list = SinglyLinkedList()
     for node in [1,1,2]:
-        single_link.append(node)
-    head = Solution().deleteDuplicates(single_link.head)
-    while head:
-        print(head.val, end=" ")
-        head = head.next
-    print()
+        singly_linked_list.append(node)
+    singly_linked_list.head = Solution().deleteDuplicates(singly_linked_list.head)
+    print(singly_linked_list.display())
 
-    single_link = SingleLinkList()
+    singly_linked_list = SinglyLinkedList()
     for node in [1, 2, 2]:
-        single_link.append(node)
-    head = Solution().deleteDuplicates(single_link.head)
-    while head:
-        print(head.val, end=" ")
-        head = head.next
-    print()
+        singly_linked_list.append(node)
+    singly_linked_list.head = Solution().deleteDuplicates(singly_linked_list.head)
+    print(singly_linked_list.display())

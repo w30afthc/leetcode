@@ -6,9 +6,26 @@ from typing import List, Optional
 
 
 # Definition for singly-linked list.
-class SinglyLinkList:
-    def __int__(self):
-        self._head = None
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, val):
+        if not self.head:
+            self.head = ListNode(val)
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = ListNode(val)
+
+    def display(self):
+        elements = []
+        current = self.head
+        while current:
+            elements.append(current.val)
+            current = current.next
+        return elements
 
 
 class ListNode:
@@ -27,12 +44,12 @@ class Solution:
     def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if not head:
             return head
-        cur = head
-        while cur.next:
-            if cur.val == cur.next.val:
-                cur.next = cur.next.next
+        current = head
+        while current.next:
+            if current.val == current.next.val:
+                current.next = current.next.next
             else:
-                cur = cur.next
+                current = current.next
         return head
 
 
@@ -57,29 +74,18 @@ class Solution1:
 
 
 if __name__ == "__main__":
-    head = ListNode(1)
-    head.next = ListNode(1)
-    head.next.next = ListNode(2)
-    head = Solution().deleteDuplicates(head)
-    cur = head
-    while cur:
-        print(cur.val)
-        cur = cur.next
+    singly_linked_list = SinglyLinkedList()
+    for element in [1, 1, 2]:
+        singly_linked_list.append(element)
+    singly_linked_list.head = Solution().deleteDuplicates(singly_linked_list.head)
+    print(singly_linked_list.display())
 
-    head = ListNode(1)
-    head.next = ListNode(1)
-    head.next.next = ListNode(2)
-    head.next.next.next = ListNode(3)
-    head.next.next.next.next = ListNode(3)
-    head = Solution().deleteDuplicates(head)
-    cur = head
-    while cur:
-        print(cur.val)
-        cur = cur.next
+    singly_linked_list = SinglyLinkedList()
+    for element in [1, 1, 2, 3, 3]:
+        singly_linked_list.append(element)
+    singly_linked_list.head = Solution().deleteDuplicates(singly_linked_list.head)
+    print(singly_linked_list.display())
 
-    head = None
-    head = Solution().deleteDuplicates(head)
-    cur = head
-    while cur:
-        print(cur.val)
-        cur = cur.next
+    singly_linked_list = SinglyLinkedList()
+    singly_linked_list.head = Solution().deleteDuplicates(singly_linked_list.head)
+    print(singly_linked_list.display())
