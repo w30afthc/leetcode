@@ -13,7 +13,7 @@ class Solution:
     利用 Counter 对象相减能选出补全词，再挑选长度最短的
     时间复杂度： O(n + l + m * 26), n 为 licensePlate 长度，l 为 words 中的是所有字符串长度之和
     m 为 words 数组的长度
-    空间复杂度： O(26)
+    空间复杂度： O(1)
     """
     def shortestCompletingWord(self, licensePlate: str, words: List[str]) -> str:
         cnt = Counter(ch.lower() for ch in licensePlate if ch.isalpha())
