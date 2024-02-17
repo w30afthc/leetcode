@@ -6,6 +6,25 @@ from typing import List
 
 
 class Solution:
+    """哈希表
+
+    哈希表（字典）中键值对记录每个字符出现在字符串中的位置
+    右指针遍历字符串，当有重复字符时更新左指正的位置
+    时间复杂度： O(n)
+    空间复杂度： O(1)
+    """
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        left, result = -1, 0
+        hashtable = {}
+        for right in range(len(s)):
+            if s[right] in hashtable:
+                left = max(left, hashtable[s[right]])
+            hashtable[s[right]] = right
+            result = max(result, right - left)
+        return result
+
+
+class Solution1:
     """双指针
 
     左指针记录无重复字符的开始，右指针试探无重复字符的结束
@@ -25,6 +44,6 @@ class Solution:
 
 if __name__ == "__main__":
     print(Solution().lengthOfLongestSubstring(s="abcabcbb"))
-    print(Solution().lengthOfLongestSubstring(s="bbbbb"))
+    print(Solution().lengthOfLongestSubstring(s="b"))
     print(Solution().lengthOfLongestSubstring(s="pwwkew"))
     print(Solution().lengthOfLongestSubstring(s="bbtablud"))
