@@ -1,6 +1,6 @@
 """
-title : 1.Two Sum
-source : https://leetcode.cn/problems/***/description/
+title : number.title name
+source : https://leetcode.cn/problems/***/
 """
 from typing import List
 
