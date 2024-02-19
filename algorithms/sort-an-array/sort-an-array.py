@@ -1,13 +1,38 @@
 """
 title : 912. Sort an Array
 source : https://leetcode.cn/leetbook/read/sort-algorithms/eunjmt/
+source : https://leetcode.cn/leetbook/read/sort-algorithms/et5ie2/
 source : https://leetcode.cn/problems/sort-an-array/
 """
 from typing import List
 
 
 class Solution:
-    """快速排序"""
+    """希尔排序
+
+    时间复杂度： O(n * log n)
+    空间复杂度： O(1)
+    """
+    def sortArray(self, nums: List[int]) -> List[int]:
+        gap = len(nums) // 2
+        while gap > 0:
+            for i in range(gap, len(nums)):
+                current = nums[i]
+                pre_index = i - gap
+                while pre_index >= 0 and current < nums[pre_index]:
+                    nums[pre_index + gap] = nums[pre_index]
+                    pre_index -= gap
+                nums[pre_index + gap] = current
+            gap //= 2
+        return nums
+
+
+class Solution2:
+    """快速排序
+
+    时间复杂度： O(n * log n)
+    空间复杂度： O(log n)
+    """
     def sortArray(self, nums: List[int]) -> List[int]:
         self.quick_sort(nums, 0, len(nums) - 1)
         return nums
