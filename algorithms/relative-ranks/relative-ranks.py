@@ -7,6 +7,29 @@ from typing import List
 
 
 class Solution:
+    """常规解法
+
+    排序后，依次找出数组中每个元素的排名
+    时间复杂度： O(n * log n)
+    空间复杂度： O(n)
+    """
+    def findRelativeRanks(self, score: List[int]) -> List[str]:
+        sorted_score = sorted(score, reverse=True)
+        dict_scort = dict(zip(sorted_score, range(1, len(sorted_score) + 1)))
+        answer = []
+        for point in score:
+            if dict_scort[point] == 1:
+                answer.append("Gold Medal")
+            elif dict_scort[point] == 2:
+                answer.append("Silver Medal")
+            elif dict_scort[point] == 3:
+                answer.append("Bronze Medal")
+            else:
+                answer.append(str(dict_scort[point]))
+        return answer
+
+
+class Solution1:
     """希尔排序
 
     排序后，依次找出数组中每个元素的排名
