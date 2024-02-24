@@ -9,13 +9,43 @@ from typing import List
 class Solution:
     """堆排序
 
-    时间复杂度： O(n*log n)
+    时间复杂度： O(n * log n)
+    空间复杂度： O(1)
+    """
+    def max_heapify(self, nums, i, heap_size):
+        left = 2 * i + 1
+        right = 2 * i + 2
+        largest = i
+        if left < heap_size and nums[left] > nums[largest]:
+            largest = left
+        if right < heap_size and nums[right] > nums[largest]:
+            largest = right
+        if largest != i:
+            nums[i], nums[largest] = nums[largest], nums[i]
+            self.max_heapify(nums, largest, heap_size)
+
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        for i in range(n // 2 - 1, -1, -1):
+            self.max_heapify(nums, i, n)
+
+        for i in range(n - 1, n - k, -1):
+            nums[0], nums[i] = nums[i], nums[0]
+            self.max_heapify(nums, 0, i)
+
+        return nums[0]
+
+
+class Solution3:
+    """堆排序-2
+
+    时间复杂度： O(n * log n)
     空间复杂度： O(1)
     """
     def maxHeapify(self, arr, i, end):
         j = 2 * i + 1
-        while j <= end:
-            if j + 1 <= end and arr[j+1] > arr[j]:
+        while j < end:
+            if j + 1 < end and arr[j + 1] > arr[j]:
                 j += 1
             if arr[i] < arr[j]:
                 arr[i], arr[j] = arr[j], arr[i]
@@ -26,14 +56,14 @@ class Solution:
 
     def findKthLargest(self, nums: List[int], k: int) -> int:
         n = len(nums)
-        for i in range(n//2-1, -1, -1):
-            self.maxHeapify(nums, i, n-1)
+        for i in range(n // 2 - 1, -1, -1):
+            self.maxHeapify(nums, i, n)
 
-        for j in range(n-1, n-k-1, -1):
+        for j in range(n - 1, n - k, -1):
             nums[0], nums[j] = nums[j], nums[0]
-            self.maxHeapify(nums, 0, j-1)
+            self.maxHeapify(nums, 0, j)
 
-        return nums[-k]
+        return nums[0]
 
 
 class Solution2:
