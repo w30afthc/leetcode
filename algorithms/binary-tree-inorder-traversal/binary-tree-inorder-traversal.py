@@ -50,7 +50,6 @@ class Solution:
     """
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         ans = []
-        pre = None
         while root:
             if root.left:
                 pre = root.left
